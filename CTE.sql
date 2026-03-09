@@ -253,7 +253,7 @@ select * from salary_ranking where salary_rank = 1
 
 --==================CTE that finds the total salary expense per department,
 --============ then display departments where the total salary is above 10000.
-with total_Salary as (
+with total_salary as (
     select 
            d.department_name,
            sum (e.salary) as dep_total_exp
@@ -263,4 +263,5 @@ with total_Salary as (
     group by d.department_name
          
 )
+select * from total_salary
 select * from total_salary where dep_total_exp > 10000
