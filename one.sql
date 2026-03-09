@@ -65,15 +65,21 @@ e.salary =(
     where e2.department_id = d.department_id
     )
 
-
+-- Show employees, their department, and their projects together
 select e.name,
 p.project_name,
 d.department_name
 from employees e
-join employee_projects ep
+left join employee_projects ep
 on e.employee_id = ep.employee_id
-join projects p
+left join projects p
 on ep.project_id = p.project_id
-join departments d
+left join departments d
 on e.department_id = d.department_id
 
+select e.name, d.department_name,e.salary,
+-- avg(e.salary) over (partition by d.department_name) as avg_salary,
+row_number() over (order by e.salary desc) as salary_rank
+ from employees e
+join departments d
+on e.department_id = d.department_id
